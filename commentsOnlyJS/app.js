@@ -1,4 +1,4 @@
-// Personal API Key for OpenWeatherMap API
+// Personal API Key for image.png
 
 // Event listener to add function to existing HTML DOM element
 
