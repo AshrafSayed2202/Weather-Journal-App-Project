@@ -17,7 +17,7 @@ body{
     font-family: 'Oswald', sans-serif;
 }
 
-.holder{
+.holder{    
     
     display: flex;
     flex-direction: column;
@@ -29,6 +29,7 @@ body{
 
 .entry{
     background: rgba(59, 74, 107, .4);
+    margin-bottom: 1em;
 }
 
 #entryHolder{
@@ -48,6 +49,8 @@ body{
 }
 
 .headline {
+    font-size: 3em;
+    font-weight: bold;
 
 }
 .title{
@@ -94,6 +97,8 @@ textarea{
     color: #f0d43a;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
+    width: 400px;
+    height: 150px;
 }
 /* Reset style for HTML element on active to have no border*/
 input:focus,

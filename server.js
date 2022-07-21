@@ -19,7 +19,7 @@ app.use(express.static('website'));
 
 
 // Setup Server
-const port = 8000;
+const port = 3000;
 const server = app.listen(port,listening);
 
 function listening(){
@@ -29,9 +29,11 @@ function listening(){
 app.post('/addWeather',reciveData);
 function reciveData (request,response){
     let data = request.body;
-    projectData = data;
+    projectData['temp'] = data.temp;
+    projectData['content'] = data.content;
+    projectData['date'] = data.date;
     console.log(projectData);
-}
+};
 // GET route setup
 app.get('/retrieveData', sendData);
 

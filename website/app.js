@@ -15,17 +15,21 @@ let weatherData = {};
 const getWeatherData = async function(url,zipCode,key){
     const res = await fetch(url+zipCode+key)
     try {
-        weatherData = await res.json();
+        let data = await res.json();
+        weatherData = data;
         console.log(weatherData)
     } catch (error) {
         console.log("error",error)
     }
 };
-generateBtn.onclick = ()=>{
-    getWeatherData(apiUrl,zipCode.value,apiKey);
-    postData('/addWeather', {temp:weatherData.main.temp,content:feelings.value,date:newDate});
-    retrieveData()
-}
+generateBtn.addEventListener('click',performAction);
+function performAction(){
+    getWeatherData(apiUrl,zipCode.value,apiKey).then(()=>{
+        postData('/addWeather', {temp:weatherData.main.temp,content:feelings.value,date:newDate});
+    }).then(()=>{
+        retrieveData();
+    })
+};
 const postData = async ( url = '', data = {})=>{
     const response = await fetch(url, {
     method: 'POST', 
@@ -38,14 +42,20 @@ const postData = async ( url = '', data = {})=>{
     });
     try {
         const newData = await response.json();
-        console.log(newData);
+        // console.log(newData);
         return newData;
     }catch(error) {
     console.log("error", error);
     }
 };
 const retrieveData = async () =>{
-    const request = await fetch('/retrieveData');
+    const request = await fetch('/retrieveData',{
+        method: 'GET', 
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
     try {
     // Transform into JSON
     const allData = await request.json()
