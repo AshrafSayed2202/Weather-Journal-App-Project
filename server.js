@@ -1,5 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+projectData = [];
 
 // Require Express to run server and routes
 const express = require('express');
@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 
 // Cors for cross origin allowance
 const cors = require('cors');
+app.use(cors());
 // Initialize the main project folder
 app.use(express.static('website'));
 
@@ -24,7 +25,9 @@ const server = app.listen(port,listening);
 function listening(){
     console.log(`Local server is running on port : ${port}`)
 }
-// GET route setup
-app.get('/weather',function(req,res){
-    res.send(projectData)
+// POST route setup
+app.post('/Weather',async function(request){
+    let data = await request.body;
+    projectData.push(data);
+    console.log(projectData);
 });
