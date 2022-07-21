@@ -8,7 +8,7 @@ const feelings = document.getElementById('feelings');
 // Create a new date instance dynamically with JS
 let d = new Date();
 let month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-let newDate = month[d.getMonth()] + '.' +  d.getDate() + '.'+ d.getFullYear();
+let newDate = d.getDate() + '.' + month[d.getMonth()] + '.'+ d.getFullYear();
 
 // Asynchronous function to fetch the data from the app endpoint
 let weatherData = {};
@@ -23,7 +23,8 @@ const getWeatherData = async function(url,zipCode,key){
 };
 generateBtn.onclick = ()=>{
     getWeatherData(apiUrl,zipCode.value,apiKey);
-    postData('/Weather', {temp:weatherData.main.temp,content:feelings.value,date:newDate});
+    postData('/addWeather', {temp:weatherData.main.temp,content:feelings.value,date:newDate});
+    retrieveData()
 }
 const postData = async ( url = '', data = {})=>{
     const response = await fetch(url, {
@@ -41,5 +42,20 @@ const postData = async ( url = '', data = {})=>{
         return newData;
     }catch(error) {
     console.log("error", error);
+    }
+};
+const retrieveData = async () =>{
+    const request = await fetch('/retrieveData');
+    try {
+    // Transform into JSON
+    const allData = await request.json()
+    // Write updated data to DOM elements
+    document.getElementById('temp').innerHTML = Math.round(allData.temp)+ ' degrees';
+    document.getElementById('content').innerHTML = allData.content;
+    document.getElementById("date").innerHTML =allData.date;
+    }
+    catch(error) {
+    console.log("error", error);
+      // appropriately handle the error
     }
 };
