@@ -17,7 +17,6 @@ const getWeatherData = async function(url,zipCode,key){
     try {
         let data = await res.json();
         weatherData = data;
-        console.log(weatherData)
     } catch (error) {
         console.log("error",error)
     }
@@ -42,7 +41,6 @@ const postData = async ( url = '', data = {})=>{
     });
     try {
         const newData = await response.json();
-        // console.log(newData);
         return newData;
     }catch(error) {
     console.log("error", error);
@@ -69,3 +67,6 @@ const retrieveData = async () =>{
       // appropriately handle the error
     }
 };
+zipCode.onfocus = function(){
+    zipCode.attributes.placeholder = "";
+}

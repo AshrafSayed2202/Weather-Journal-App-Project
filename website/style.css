@@ -28,12 +28,18 @@ body{
     margin-bottom: 1em;
     width: 400px;
     border-radius: 20px;
+    height: max-content;
 }
 #entryHolder{
-
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    padding: 15px;
 }
 #date{
-
+    color: #584e12;
+    font-weight: bolder;
 }
 #temp{
 
@@ -52,7 +58,7 @@ body{
 /*  Basic Styling To Override Default For Basic HTML Elements */
 label{
     display:block;
-    font-size: 27px;
+    font-size: 40px;
 }
 
 input{
@@ -94,11 +100,25 @@ textarea{
     color: #f0d43a;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
-    width: 380px;
+    width: 360px;
     height: 150px;
     border: none;
     border-radius: 20px;
-    padding: 10px;
+    padding: 20px;
+    resize: none;
+}
+textarea::-webkit-scrollbar-track{
+	background-color: #22b2da;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+textarea::-webkit-scrollbar{
+	width: 15px;
+	background-color: transparent;
+}
+textarea::-webkit-scrollbar-thumb{
+	border-radius: 100px;
+	background-color: #4dffff;
 }
 /* Reset style for HTML element on active to have no border*/
 input:focus,
