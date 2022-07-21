@@ -8,10 +8,9 @@ body{
     grid-auto-rows: minmax(150px, auto);
     /* grid-template-columns: ; */
     height:100vh;
-    background: linear-gradient(#33ffff,#ffffff);
+    background: linear-gradient(#00ffff,#ffffff);
     color: #f0d43a;
     justify-content: center;
-    grid-gap: 1em;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
 }
@@ -41,16 +40,12 @@ body{
     color: #584e12;
     font-weight: bolder;
 }
-#temp{
-
-}
-#content{
-
-}
 .headline {
     font-size: 3em;
     font-weight: bold;
     justify-content: center;
+    text-align: center;
+    -webkit-text-stroke: #eee 1px;
 }
 .title{
     padding-top: 10px;
@@ -142,6 +137,11 @@ button:focus {
     font-family: 'Oswald', sans-serif;
 } 
 /* Symbol creation and animation */
+@media (max-width:1250px) {
+    .symbol{
+        display: none;
+    }
+}
 .symbol{
     width: 300px;
     height: 300px;
@@ -171,12 +171,15 @@ button:focus {
     height: 10px;
     border-radius: 5px;
     z-index: 4;
+    transition: 0.1s;
 }
 .symbol .sun .b{
     width: 40px;
+    animation: forBig 2s infinite linear alternate;
 }
 .symbol .sun .s{
     width: 30px;
+    animation: forSmall 2s infinite linear alternate;
 }
 .symbol .sun .b:nth-child(2){
     top: -7%;
@@ -223,6 +226,20 @@ button:focus {
         transform: rotate(0deg);
     }to{
         transform: rotate(360deg);
+    }
+}
+@keyframes forBig {
+    from{
+        width:40px
+    }to{
+        width:30px
+    }
+}
+@keyframes forSmall {
+    from{
+        width:30px
+    }to{
+        width:40px
     }
 }
 @keyframes upDown {
