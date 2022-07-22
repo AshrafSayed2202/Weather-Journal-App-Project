@@ -38,5 +38,6 @@ function reciveData (request,response){
 app.get('/retrieveData', sendData);
 
 function sendData (request, response) {
+    // send data to UpdateUI
     response.send(projectData);
 };

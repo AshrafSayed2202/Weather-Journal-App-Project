@@ -10,7 +10,7 @@ let d = new Date();
 let month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 let newDate = d.getDate() + '.' + month[d.getMonth()] + '.'+ d.getFullYear();
 
-// Asynchronous function to fetch the data from the app endpoint
+// Asynchronous function to fetch the data from the web API
 let weatherData = {};
 const getWeatherData = async function(url,zipCode,key){
     const res = await fetch(url+zipCode+key)
@@ -21,6 +21,7 @@ const getWeatherData = async function(url,zipCode,key){
         console.log("error",error)
     }
 };
+// Event listener to add function to existing HTML DOM element
 generateBtn.addEventListener('click',performAction);
 function performAction(){
     getWeatherData(apiUrl,zipCode.value,apiKey).then(()=>{
@@ -29,6 +30,7 @@ function performAction(){
         retrieveData();
     })
 };
+/* Function to POST data */
 const postData = async ( url = '', data = {})=>{
     const response = await fetch(url, {
     method: 'POST', 
@@ -36,7 +38,6 @@ const postData = async ( url = '', data = {})=>{
     headers: {
         'Content-Type': 'application/json',
     },
-     // Body data type must match "Content-Type" header        
     body: JSON.stringify(data), 
     });
     try {
@@ -46,27 +47,17 @@ const postData = async ( url = '', data = {})=>{
     console.log("error", error);
     }
 };
+/* Function to GET Project Data */
 const retrieveData = async () =>{
-    const request = await fetch('/retrieveData',{
-        method: 'GET', 
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    });
+    const request = await fetch('/retrieveData');
     try {
-    // Transform into JSON
     const allData = await request.json()
-    // Write updated data to DOM elements
+    // UpdateUI
     document.getElementById('temp').innerHTML = Math.round(allData.temp)+ ' degrees';
     document.getElementById('content').innerHTML = allData.content;
     document.getElementById("date").innerHTML =allData.date;
     }
     catch(error) {
     console.log("error", error);
-      // appropriately handle the error
     }
 };
-zipCode.onfocus = function(){
-    zipCode.attributes.placeholder = "";
-}
