@@ -5,6 +5,7 @@ const apiUrl= 'https://api.openweathermap.org/data/2.5/weather?q='
 const zipCode = document.getElementById('zip');
 const generateBtn = document.getElementById('generate');
 const feelings = document.getElementById('feelings');
+const resetBtn = document.getElementById('reset');
 // Create a new date instance dynamically with JS
 let d = new Date();
 let month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -22,7 +23,15 @@ const getWeatherData = async function(url,zipCode,key){
         console.log("error",error)
     }
 };
-// Event listener to add function to existing HTML DOM element
+// Event listeners to add function to existing HTML DOM element
+resetBtn.addEventListener('click',resetAction);
+function resetAction(){
+    zipCode.value = "";
+    feelings.value = "";
+    document.querySelectorAll('#entryHolder>div').forEach((e)=>{
+        e.style.display = 'none'
+    });
+}
 generateBtn.addEventListener('click',performAction);
 function performAction(){
     getWeatherData(apiUrl,zipCode.value,apiKey).then(()=>{

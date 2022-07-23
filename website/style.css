@@ -74,9 +74,11 @@ input{
     text-align: center;
     padding: 0;
 }
-
-button{
+.buttons{
     width: 100%;
+}
+#generate{
+    width: 80%;
     height: 100px;
     background: #3b4a6b;
     color: #f0d43a;
@@ -86,10 +88,28 @@ button{
     box-shadow: 2px 4px 5px #444;
     transition: 0.3s;
     cursor: pointer;
-    border-radius: 50px;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
 }
-button:hover{
+#reset{
+    width: 20%;
+    height: 100px;
+    background: #e91e63;
+    color: #f0d43a;
+    font-size: 26px;
+    font-family: 'Oswald', sans-serif;
+    border: none;
+    box-shadow: 0px 4px 5px #444;
+    transition: 0.3s;
+    cursor: pointer;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+#generate:hover{
     background:#273247;
+}
+#reset:hover{
+    background: #a31645;
 }
 h1{
     font-size: 36px;
@@ -131,8 +151,7 @@ textarea::-webkit-scrollbar-thumb{
 /* Reset style for HTML element on active to have no border*/
 input:focus,
 select:focus,
-textarea:focus,
-button:focus {
+textarea:focus{
     outline: none;
 }
 /* Style for Placeholder Text*/
