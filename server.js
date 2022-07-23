@@ -30,6 +30,7 @@ app.post('/addWeather',reciveData);
 function reciveData (request,response){
     let data = request.body;
     // adding the data to the server endpoint
+    projectData['city'] = data.city
     projectData['temp'] = data.temp;
     projectData['content'] = data.content;
     projectData['date'] = data.date;
