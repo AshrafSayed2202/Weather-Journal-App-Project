@@ -29,8 +29,7 @@ const getWeatherData = async function(url,zipCode,key){
     try {
         let data = await res.json();
         weatherData = data;
-        console.log(weatherData)
-        // console.log(weatherData.weather[0].description)
+        // console.log(weatherData.sys.country)
     } catch (error) {
         console.log("error",error)
     }
@@ -52,7 +51,9 @@ function performAction(){
             temp:weatherData.main.temp,
             description:weatherData.weather[0].description,
             content:feelings.value,
-            date:newDate
+            date:newDate,
+            icon:weatherData.weather[0].icon,
+            country:weatherData.sys.country
         });
     }).then(()=>{
         retrieveData();
@@ -89,11 +90,12 @@ const retrieveData = async () =>{
     try {
     const allData = await request.json()
     // UpdateUI
-    document.getElementById('city').innerHTML = allData.city;
+    document.getElementById('city').innerHTML = `${allData.city}-${allData.country}`;
     document.getElementById("date").innerHTML =allData.date;
     document.getElementById('temp').innerHTML = Math.round(allData.temp)+ ' C°';
     document.getElementById('description').innerHTML = allData.description;
     document.getElementById('content').innerHTML = allData.content;
+    document.getElementById('icon').attributes.src.value = `http://openweathermap.org/img/wn/${allData.icon}@2x.png`;
     }
     catch(error) {
     console.log("error", error);

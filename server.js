@@ -35,6 +35,8 @@ function reciveData (request,response){
     projectData['temp'] = data.temp;
     projectData['description'] = data.description;
     projectData['content'] = data.content;
+    projectData['icon'] = data.icon;
+    projectData['country'] = data.country;
 };
 // GET route setup
 app.get('/retrieveData', sendData);
