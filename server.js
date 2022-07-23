@@ -31,9 +31,10 @@ function reciveData (request,response){
     let data = request.body;
     // adding the data to the server endpoint
     projectData['city'] = data.city
-    projectData['temp'] = data.temp;
-    projectData['content'] = data.content;
     projectData['date'] = data.date;
+    projectData['temp'] = data.temp;
+    projectData['description'] = data.description;
+    projectData['content'] = data.content;
 };
 // GET route setup
 app.get('/retrieveData', sendData);

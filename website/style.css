@@ -91,6 +91,9 @@ input{
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
 }
+#generate::after{
+    content: "";
+}
 #reset{
     width: 20%;
     height: 100px;

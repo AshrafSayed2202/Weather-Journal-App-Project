@@ -10,7 +10,18 @@ const resetBtn = document.getElementById('reset');
 let d = new Date();
 let month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 let newDate = d.getDate() + ' / ' + month[d.getMonth()] + ' / '+ d.getFullYear();
-
+zipCode.onfocus = function(){
+    zipCode.attributes[2].value = ''
+}
+zipCode.onblur = function(){
+    zipCode.attributes[2].value = 'Enter zip code here'
+}
+feelings.onfocus = function(){
+    feelings.attributes[2].value = ''
+}
+feelings.onblur = function(){
+    feelings.attributes[2].value = 'Enter your feelings here'
+}
 // Asynchronous function to fetch the data from the web API
 let weatherData = {};
 const getWeatherData = async function(url,zipCode,key){
@@ -19,6 +30,7 @@ const getWeatherData = async function(url,zipCode,key){
         let data = await res.json();
         weatherData = data;
         console.log(weatherData)
+        // console.log(weatherData.weather[0].description)
     } catch (error) {
         console.log("error",error)
     }
@@ -35,13 +47,24 @@ function resetAction(){
 generateBtn.addEventListener('click',performAction);
 function performAction(){
     getWeatherData(apiUrl,zipCode.value,apiKey).then(()=>{
-        postData('/addWeather', {city:weatherData.name,temp:weatherData.main.temp,content:feelings.value,date:newDate});
+        postData('/addWeather', {
+            city:weatherData.name,
+            temp:weatherData.main.temp,
+            description:weatherData.weather[0].description,
+            content:feelings.value,
+            date:newDate
+        });
     }).then(()=>{
         retrieveData();
+    }).then(async ()=>{
+        document.querySelectorAll('#entryHolder>div').forEach((e)=>{
+            e.style.display = "block"
+            // if(document.querySelector(`.${e.className}>span`).innerHTML != ''){
+            //     e.style.display = "block"
+            // }
+        });
     })
-    document.querySelectorAll('#entryHolder>div').forEach((e)=>{
-        e.style.display = 'block'
-    });
+    
 };
 /* Function to POST data */
 const postData = async ( url = '', data = {})=>{
@@ -67,9 +90,10 @@ const retrieveData = async () =>{
     const allData = await request.json()
     // UpdateUI
     document.getElementById('city').innerHTML = allData.city;
-    document.getElementById('temp').innerHTML = Math.round(allData.temp)+ ' C°';
-    document.getElementById('content').innerHTML = allData.content;
     document.getElementById("date").innerHTML =allData.date;
+    document.getElementById('temp').innerHTML = Math.round(allData.temp)+ ' C°';
+    document.getElementById('description').innerHTML = allData.description;
+    document.getElementById('content').innerHTML = allData.content;
     }
     catch(error) {
     console.log("error", error);
