@@ -29,7 +29,7 @@ const getWeatherData = async function(url,zipCode,key){
     try {
         let data = await res.json();
         weatherData = data;
-        // console.log(weatherData.sys.country)
+        console.log(weatherData)
     } catch (error) {
         console.log("error",error)
     }
@@ -90,7 +90,11 @@ const retrieveData = async () =>{
     try {
     const allData = await request.json()
     // UpdateUI
-    document.getElementById('city').innerHTML = `${allData.city}-${allData.country}`;
+    if(allData.country === undefined){
+        document.getElementById('city').innerHTML = `${allData.city}`
+    }else{
+        document.getElementById('city').innerHTML = `${allData.city}-${allData.country}`;
+    }
     document.getElementById("date").innerHTML =allData.date;
     document.getElementById('temp').innerHTML = Math.round(allData.temp)+ ' C°';
     document.getElementById('description').innerHTML = allData.description;
