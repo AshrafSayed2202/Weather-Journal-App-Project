@@ -24,12 +24,22 @@ feelings.onblur = function(){
 }
 // Asynchronous function to fetch the data from the web API
 let weatherData = {};
+let allData = {};
 const getWeatherData = async function(url,zipCode,key){
     const res = await fetch(url+zipCode+key)
     try {
         let data = await res.json();
         weatherData = data;
         console.log(weatherData)
+        allData = {
+            city:weatherData.name,
+            temp:weatherData.main.temp,
+            description:weatherData.weather[0].description,
+            content:feelings.value,
+            date:newDate,
+            icon:weatherData.weather[0].icon,
+            country:weatherData.sys.country
+        }
     } catch (error) {
         console.log("error",error)
     }
@@ -46,18 +56,8 @@ function resetAction(){
 generateBtn.addEventListener('click',performAction);
 function performAction(){
     getWeatherData(apiUrl,zipCode.value,apiKey).then(()=>{
-        postData('/addWeather', {
-            city:weatherData.name,
-            temp:weatherData.main.temp,
-            description:weatherData.weather[0].description,
-            content:feelings.value,
-            date:newDate,
-            icon:weatherData.weather[0].icon,
-            country:weatherData.sys.country
-        });
+        updateUI();
     }).then(()=>{
-        retrieveData();
-    }).then(async ()=>{
         document.querySelectorAll('#entryHolder>div').forEach((e)=>{
             e.style.display = "block"
             // if(document.querySelector(`.${e.className}>span`).innerHTML != ''){
@@ -67,28 +67,8 @@ function performAction(){
     })
     
 };
-/* Function to POST data */
-const postData = async ( url = '', data = {})=>{
-    const response = await fetch(url, {
-    method: 'POST', 
-    credentials: 'same-origin',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data), 
-    });
-    try {
-        const newData = await response.json();
-        return newData;
-    }catch(error) {
-    console.log("error", error);
-    }
-};
 /* Function to GET Project Data */
-const retrieveData = async () =>{
-    const request = await fetch('/retrieveData');
-    try {
-    const allData = await request.json()
+const updateUI = async () =>{
     // UpdateUI
     if(allData.country === undefined){
         document.getElementById('city').innerHTML = `${allData.city}`
@@ -100,8 +80,4 @@ const retrieveData = async () =>{
     document.getElementById('description').innerHTML = allData.description;
     document.getElementById('content').innerHTML = allData.content;
     document.getElementById('icon').attributes.src.value = `http://openweathermap.org/img/wn/${allData.icon}@2x.png`;
-    }
-    catch(error) {
-    console.log("error", error);
-    }
 };
