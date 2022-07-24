@@ -2,7 +2,7 @@
 
 # Description
 
-    Journal Weather App is a web application that get a weather data for a specific location using web API provided by OpenWeatherMap and save the data to local server and restore it again as a dynamic Update in the UI.
+> Journal Weather App is a web application that get a weather data for a specific location using web API provided by OpenWeatherMap and save the data to local server and restore it again as a dynamic Update in the UI.
 
 # Table of contents
 
